@@ -18,17 +18,18 @@ public class Boid {
     private static final int BOID_SIZE = 8;
     private BehaviorStrategy behavior;
 
-    public Boid(int id, double x, double y) {
-        this(id, x, y, BoidType.STANDARD);
+    public Boid(int id, double x, double y, BehaviorStrategy behavior) {
+        this(id, x, y, BoidType.STANDARD, behavior);
     }
 
-    public Boid(int id, double x, double y, BoidType type) {
+    public Boid(int id, double x, double y, BoidType type, BehaviorStrategy behavior) {
         this.id = id;
         this.x = x;
         this.y = y;
         this.type = type;
         this.vx = (Math.random() - 0.5) * 2;
         this.vy = (Math.random() - 0.5) * 2;
+        this.behavior = behavior;
     }
 
     public void update(List<Boid> neighbors, int width, int height) {

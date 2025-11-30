@@ -1,5 +1,7 @@
 package main.simulation;
 
+import main.behavior.BehaviorStrategy;
+import main.behavior.FlockBehavior;
 import main.model.Boid;
 import main.model.BoidType;
 import main.spatial.*;
@@ -13,6 +15,8 @@ public class FlockSimulation {
     private final int height;
     private double neighborRadius = 50.0;
     private double lastIterationTimeMs = 0;
+
+    private BehaviorStrategy behaviorStrategy = new FlockBehavior();
 
     public FlockSimulation(int width, int height) {
         this.width = width;
@@ -33,7 +37,7 @@ public class FlockSimulation {
         int id = boids.size();
         double x = Math.random() * width;
         double y = Math.random() * height;
-        boids.add(new Boid(id, x, y, type));
+        boids.add(new Boid(id, x, y, type, behaviorStrategy));
     }
 
     public void setBoidCount(int count) {
@@ -46,7 +50,7 @@ public class FlockSimulation {
         
         for (int i = 0; i < boids.size(); i++) {
             Boid oldBoid = boids.get(i);
-            boids.set(i, new Boid(i, oldBoid.getX(), oldBoid.getY(), oldBoid.getType()));
+            boids.set(i, new Boid(i, oldBoid.getX(), oldBoid.getY(), oldBoid.getType(), behaviorStrategy));
         }
     }
 
